@@ -27,4 +27,10 @@ export default class Card {
     return this.type.suit;
   }
 
+  toJSON() {
+    return {
+      ...this.type
+    };
+  }
+
 }
