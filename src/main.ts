@@ -12,5 +12,4 @@ const two = new CardClass({
   color: 'black'
 });
 
-console.log(a.name());
-console.log(two.name());
+console.table([a.toJSON(), two.toJSON()]);
