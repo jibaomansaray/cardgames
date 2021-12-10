@@ -1,35 +1,35 @@
-export type CardType = {
-  color: string,
-  value: number,
-  suit: string
-};
+import { CardType, SuitColor, CardName } from './types.ts'
 
-export default class Card {
+export class Card {
   private type: CardType;
 
   constructor(type: CardType) {
     this.type = type;
+    this.type.value = this.type.value || this.type.name;
   }
 
-  color(): string {
-    return this.type.color;
+  color(): SuitColor {
+    return this.type.suit.color;
   }
 
   value(): number {
-    return this.type.value;
+    return this.type.value || this.type.name;
   }
 
-  name(): string {
-    return `${this.type.value}_of_${this.type.suit}`.toLowerCase();
+  fullName(): string {
+    const cardName = CardName[this.type.name];
+    return `${cardName}_of_${this.type.suit.type}`.toLowerCase();
   }
 
   suit(): string {
-    return this.type.suit;
+    return this.type.suit.type;
   }
 
   toJSON() {
     return {
-      ...this.type
+      ...this.type,
+      fullName: this.fullName(),
+      name: CardName[this.type.name]
     };
   }
 
